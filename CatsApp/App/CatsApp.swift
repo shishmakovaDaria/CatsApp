@@ -1,5 +1,5 @@
 //
-//  CatsAppApp.swift
+//  CatsApp.swift
 //  CatsApp
 //
 //  Created by Дарья Шишмакова on 11.03.2026.
@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct CatsAppApp: App {
+struct CatsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
         }
     }
 }
