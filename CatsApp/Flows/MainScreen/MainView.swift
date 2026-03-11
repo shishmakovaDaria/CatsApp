@@ -12,6 +12,7 @@ struct MainView: View {
     // MARK: - Properties
     @ObservedObject var viewModel = MainViewModel()
     @State private var scrollButtonIsHidden = true
+    private var rowItemHeight: CGFloat = 112
     
     var body: some View {
         ScrollViewReader { proxy in
@@ -20,6 +21,7 @@ struct MainView: View {
                     LazyVStack(spacing: 12) {
                         ForEach(viewModel.cats) { cat in
                             MainRowItem(cat: cat)
+                                .frame(height: rowItemHeight)
                         }
                     }
                     .id("top")
@@ -28,7 +30,7 @@ struct MainView: View {
                 .onScrollGeometryChange(for: CGFloat.self) { geometry in
                     geometry.contentOffset.y + geometry.contentInsets.top
                 } action: { _, newOffset in
-                    scrollButtonIsHidden = newOffset < 252
+                    scrollButtonIsHidden = newOffset < rowItemHeight*2
                 }
                 Button(action: {
                     withAnimation {

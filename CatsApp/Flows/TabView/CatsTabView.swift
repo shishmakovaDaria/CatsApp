@@ -11,19 +11,19 @@ struct CatsTabView: View {
         TabView {
             NavigationStack {
                 MainView()
-                    .navigationTitle("Коты")
+                    .navigationTitle(LocalizableStrings.cats)
                     .appToolbar()
             }
             .tabItem {
-                Label("Коты", systemImage: "cat")
+                Label(LocalizableStrings.cats, systemImage: "cat")
             }
             NavigationStack {
                 FavoritesView()
-                    .navigationTitle("Избранные")
+                    .navigationTitle(LocalizableStrings.favorites)
                     .appToolbar()
             }
             .tabItem {
-                Label("Избранные", systemImage: "heart")
+                Label(LocalizableStrings.favorites, systemImage: "heart")
             }
         }
     }

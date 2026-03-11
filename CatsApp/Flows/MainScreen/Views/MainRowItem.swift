@@ -12,13 +12,7 @@ struct MainRowItem: View {
     
     var body: some View {
         HStack(spacing: 20) {
-            AsyncImage(url: URL(string: cat.image)) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } placeholder: {
-                ProgressView()
-            }
+            AsyncImage(url: URL(string: cat.image), content: catImage)
             .frame(width: 112, height: 112)
             .clipped()
             VStack(alignment: .leading, spacing: 1) {
@@ -34,13 +28,34 @@ struct MainRowItem: View {
             .padding([.top, .bottom], 18)
             Spacer()
         }
-        .frame(height: 112)
         .background(Color.white)
         .clipShape(
             RoundedRectangle(cornerRadius: 24)
         )
         .shadow(color: Color.black.opacity(0.04), radius: 32)
     }
+    
+    @ViewBuilder
+       private func catImage(for phase: AsyncImagePhase) -> some View {
+           switch phase {
+           case .empty:
+               ProgressView()
+           case .success(let image):
+               image
+                   .resizable()
+                   .aspectRatio(contentMode: .fill)
+           case .failure(let error):
+               VStack(spacing: 4) {
+                   Image(systemName: "xmark.circle")
+                   Text(error.localizedDescription)
+                       .font(.system(size: 13, weight: .regular))
+                       .multilineTextAlignment(.center)
+               }
+           @unknown default:
+               Text("Unknown")
+                   .foregroundColor(.gray)
+           }
+       }
 }
 
 #Preview {
@@ -53,4 +68,5 @@ struct MainRowItem: View {
             image: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg"
         )
     )
+    .frame(height: 112)
 }
