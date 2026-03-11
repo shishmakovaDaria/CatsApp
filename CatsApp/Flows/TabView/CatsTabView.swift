@@ -23,7 +23,7 @@ struct CatsTabView: View {
                     .appToolbar()
             }
             .tabItem {
-                Label("Избранные", systemImage: "square.and.pencil")
+                Label("Избранные", systemImage: "heart")
             }
         }
     }
