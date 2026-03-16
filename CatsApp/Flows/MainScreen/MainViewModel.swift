@@ -14,6 +14,6 @@ final class MainViewModel: ObservableObject {
     
     // MARK: - Life Cycle
     init() {
-        cats = CatModel.getMockData()
+        cats = CatModel.mockData()
     }
 }

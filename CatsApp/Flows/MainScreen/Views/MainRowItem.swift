@@ -9,25 +9,32 @@ import SwiftUI
 
 struct MainRowItem: View {
     let cat: CatModel
+    var viewHeight: CGFloat = 112
     
     var body: some View {
         HStack(spacing: 20) {
-            AsyncImage(url: URL(string: cat.image), content: catImage)
-            .frame(width: 112, height: 112)
-            .clipped()
+            if let imageURL = cat.imageURL {
+                AsyncImage(url: imageURL, content: catImage)
+                .frame(width: 112)
+                .clipped()
+            }
             VStack(alignment: .leading, spacing: 1) {
                 Text(cat.name)
                     .font(.system(size: 17, weight: .semibold))
+                    .lineLimit(1)
                 Text(cat.origin)
                     .font(.system(size: 15, weight: .regular))
                     .foregroundStyle(.textGray)
+                    .lineLimit(1)
                 Text(cat.description)
                     .font(.system(size: 13, weight: .regular))
                     .foregroundStyle(.textGray)
+                    .lineLimit(2)
             }
-            .padding([.top, .bottom], 18)
-            Spacer()
+            .padding(.vertical, 18)
+            Spacer(minLength: 0)
         }
+        .frame(height: viewHeight)
         .background(Color.white)
         .clipShape(
             RoundedRectangle(cornerRadius: 24)
@@ -36,37 +43,28 @@ struct MainRowItem: View {
     }
     
     @ViewBuilder
-       private func catImage(for phase: AsyncImagePhase) -> some View {
-           switch phase {
-           case .empty:
-               ProgressView()
-           case .success(let image):
-               image
-                   .resizable()
-                   .aspectRatio(contentMode: .fill)
-           case .failure(let error):
-               VStack(spacing: 4) {
-                   Image(systemName: "xmark.circle")
-                   Text(error.localizedDescription)
-                       .font(.system(size: 13, weight: .regular))
-                       .multilineTextAlignment(.center)
-               }
-           @unknown default:
-               Text("Unknown")
-                   .foregroundColor(.gray)
-           }
-       }
+    private func catImage(for phase: AsyncImagePhase) -> some View {
+        switch phase {
+        case .empty:
+            ProgressView()
+        case .success(let image):
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+        case .failure(let error):
+            VStack(spacing: 4) {
+                Image(systemName: "xmark.circle")
+                Text(error.localizedDescription)
+                    .font(.system(size: 13, weight: .regular))
+                    .multilineTextAlignment(.center)
+            }
+        @unknown default:
+            Text("Unknown")
+                .foregroundColor(.gray)
+        }
+    }
 }
 
 #Preview {
-    MainRowItem(
-        cat: CatModel(
-            id: "1",
-            name: "Abyssinian",
-            origin: "Egypt",
-            description: "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
-            image: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg"
-        )
-    )
-    .frame(height: 112)
+    MainRowItem(cat: .fixture())
 }

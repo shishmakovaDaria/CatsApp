@@ -10,7 +10,7 @@ struct CatsTabView: View {
     var body: some View {
         TabView {
             NavigationStack {
-                MainView()
+                MainView(viewModel: MainViewModel())
                     .navigationTitle(LocalizableStrings.cats)
                     .appToolbar()
             }
@@ -29,7 +29,7 @@ struct CatsTabView: View {
     }
 }
 
-struct AppToolbarModifier: ViewModifier {
+private struct AppToolbarModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .navigationBarTitleDisplayMode(.inline)
@@ -41,7 +41,7 @@ struct AppToolbarModifier: ViewModifier {
 }
 
 extension View {
-    func appToolbar() -> some View {
+    fileprivate func appToolbar() -> some View {
         modifier(AppToolbarModifier())
     }
 }

@@ -10,34 +10,41 @@ import SwiftUI
 struct MainView: View {
     
     // MARK: - Properties
-    @ObservedObject var viewModel = MainViewModel()
+    @ObservedObject var viewModel: MainViewModel
     @State private var scrollButtonIsHidden = true
-    private var rowItemHeight: CGFloat = 112
+    private var rowItemHeight = CGFloat.rowItemHeight
+    
+    init(viewModel: MainViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         ScrollViewReader { proxy in
-            ZStack(alignment: .bottomTrailing) {
-                ScrollView (showsIndicators: false) {
+            ScrollView {
+                VStack(spacing: .zero) {
+                    Color.clear
+                        .frame(height: 1)
+                        .id(String.topId)
                     LazyVStack(spacing: 12) {
                         ForEach(viewModel.cats) { cat in
-                            MainRowItem(cat: cat)
-                                .frame(height: rowItemHeight)
+                            MainRowItem(
+                                cat: cat,
+                                viewHeight: rowItemHeight
+                            )
                         }
                     }
-                    .id("top")
                     .padding(.all, 16)
                 }
-                .onScrollGeometryChange(for: CGFloat.self) { geometry in
-                    geometry.contentOffset.y + geometry.contentInsets.top
-                } action: { _, newOffset in
-                    scrollButtonIsHidden = newOffset < rowItemHeight*2
-                }
-                Button(action: {
-                    withAnimation {
-                        proxy.scrollTo("top", anchor: .top)
-                    }
-                }) {
-                    Image(.scrollButton)
+            }
+            .scrollIndicators(.hidden)
+            .onScrollGeometryChange(for: CGFloat.self) { geometry in
+                geometry.contentOffset.y + geometry.contentInsets.top
+            } action: { _, newOffset in
+                scrollButtonIsHidden = newOffset < rowItemHeight*2
+            }
+            .overlay(alignment: .bottomTrailing) {
+                ScrollButton{
+                    proxy.scrollTo(String.topId, anchor: .top)
                 }
                 .padding(16)
                 .opacity(scrollButtonIsHidden ? 0 : 1)
@@ -48,5 +55,5 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+    MainView(viewModel: MainViewModel())
 }
