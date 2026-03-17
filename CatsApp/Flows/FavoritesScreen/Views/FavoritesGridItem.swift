@@ -1,21 +1,23 @@
 //
-//  MainRowItem.swift
+//  FavoritesGridItem.swift
 //  CatsApp
 //
-//  Created by Дарья Шишмакова on 11.03.2026.
+//  Created by Дарья Шишмакова on 16.03.2026.
 //
 
 import SwiftUI
 
-struct MainRowItem: View {
+struct FavoritesGridItem: View {
     let cat: CatModel
-    var viewHeight: CGFloat = 112
     
     var body: some View {
-        HStack(spacing: 20) {
+        VStack(spacing: 20) {
             if let imageURL = cat.imageURL {
-                AsyncCatImage(url: imageURL)
-                    .frame(width: 112)
+                Color.clear
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .overlay(
+                        AsyncCatImage(url: imageURL)
+                    )
                     .clipped()
             }
             VStack(alignment: .leading, spacing: 1) {
@@ -31,10 +33,9 @@ struct MainRowItem: View {
                     .foregroundStyle(.textGray)
                     .lineLimit(2)
             }
-            .padding(.vertical, 18)
+            .padding(.horizontal, 20)
             Spacer(minLength: 0)
         }
-        .frame(height: viewHeight)
         .background(Color.white)
         .clipShape(
             RoundedRectangle(cornerRadius: 24)
@@ -44,5 +45,6 @@ struct MainRowItem: View {
 }
 
 #Preview {
-    MainRowItem(cat: .fixture())
+    FavoritesGridItem(cat: .fixture())
+        .frame(width: 173, height: 289)
 }
