@@ -10,12 +10,12 @@ import SwiftUI
 struct MainView: View {
     
     // MARK: - Properties
-    @ObservedObject var viewModel: MainViewModel
+    @StateObject var viewModel: MainViewModel
     @State private var scrollButtonIsHidden = true
     private var rowItemHeight = CGFloat.rowItemHeight
     
     init(viewModel: MainViewModel) {
-        self.viewModel = viewModel
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
@@ -52,6 +52,14 @@ struct MainView: View {
             }
         }
     }
+}
+
+extension CGFloat {
+    fileprivate static let rowItemHeight: Self = 112
+}
+
+extension String {
+    fileprivate static let topId = "top"
 }
 
 #Preview {
