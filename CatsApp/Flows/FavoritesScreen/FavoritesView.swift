@@ -27,8 +27,15 @@ struct FavoritesView: View {
                 spacing: 12,
                 content: {
                     ForEach(viewModel.favoritesCats) { cat in
-                        FavoritesGridItem(cat: cat)
-                            .frame(height: 289)
+                        NavigationLink(
+                            destination: SingleCatView(
+                                viewModel: SingleCatViewModel(cat: cat)
+                            )
+                        ) {
+                            FavoritesGridItem(cat: cat)
+                                .frame(height: 289)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
             )

@@ -18,6 +18,23 @@
         }
       }
     },
+    "error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown error"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неизвестная ошибка"
+          }
+        }
+      }
+    },
     "favorites" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -34,12 +51,6 @@
           }
         }
       }
-    },
-    "FavoritesView" : {
-
-    },
-    "Unknown" : {
-
     }
   },
   "version" : "1.0"

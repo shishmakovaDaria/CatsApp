@@ -11,4 +11,5 @@ struct LocalizableStrings {
     
     static let cats = String(localized: "cats", comment: "Cats")
     static let favorites = String(localized: "favorites", comment: "Favorites")
+    static let error = String(localized: "error", comment: "Unknown error")
 }

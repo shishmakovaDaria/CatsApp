@@ -27,7 +27,7 @@ struct AsyncCatImage: View {
                         .multilineTextAlignment(.center)
                 }
             @unknown default:
-                Text("Unknown")
+                Text(LocalizableStrings.error)
                     .foregroundColor(.gray)
             }
         }
