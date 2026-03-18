@@ -1,6 +1,23 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "breed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breed"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Порода"
+          }
+        }
+      }
+    },
     "cats" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -35,6 +52,23 @@
         }
       }
     },
+    "favorite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorite"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Избранное"
+          }
+        }
+      }
+    },
     "favorites" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -48,6 +82,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Избранные"
+          }
+        }
+      }
+    },
+    "wikipedia" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wikipedia"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Википедиа"
           }
         }
       }

@@ -13,14 +13,16 @@ extension CatModel {
         name: String = "Abyssinian",
         origin: String = "Egypt",
         description: String = "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
-        imageURL: URL? = URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg")
+        imageURL: URL? = URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg"),
+        wikipediaURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Abyssinian_(cat)")
     ) -> CatModel {
         CatModel(
             id: id,
             name: name,
             origin: origin,
             description: description,
-            imageURL: imageURL
+            imageURL: imageURL,
+            wikipediaURL: wikipediaURL
         )
     }
     
@@ -31,84 +33,96 @@ extension CatModel {
                 name: "Abyssinian",
                 origin: "Egypt",
                 description: "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Abyssinian_(cat)")
             ),
             .init(
                 id: "2",
                 name: "Aegean",
                 origin: "Greece",
                 description: "Native to the Greek islands known as the Cyclades in the Aegean Sea, these are natural cats, meaning they developed without humans getting involved in their breeding. As a breed, Aegean Cats are rare, although they are numerous on their home islands. They are generally friendly toward people and can be excellent cats for families with children.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Aegean_cat")
             ),
             .init(
                 id: "3",
                 name: "Abyssinian",
                 origin: "Egypt",
                 description: "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Abyssinian_(cat)")
             ),
             .init(
                 id: "4",
                 name: "Aegean",
                 origin: "Greece",
                 description: "Native to the Greek islands known as the Cyclades in the Aegean Sea, these are natural cats, meaning they developed without humans getting involved in their breeding. As a breed, Aegean Cats are rare, although they are numerous on their home islands. They are generally friendly toward people and can be excellent cats for families with children.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Aegean_cat")
             ),
             .init(
                 id: "5",
                 name: "Abyssinian",
                 origin: "Egypt",
                 description: "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Abyssinian_(cat)")
             ),
             .init(
                 id: "6",
                 name: "Aegean",
                 origin: "Greece",
                 description: "Native to the Greek islands known as the Cyclades in the Aegean Sea, these are natural cats, meaning they developed without humans getting involved in their breeding. As a breed, Aegean Cats are rare, although they are numerous on their home islands. They are generally friendly toward people and can be excellent cats for families with children.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Aegean_cat")
             ),
             .init(
                 id: "7",
                 name: "Abyssinian",
                 origin: "Egypt",
                 description: "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Abyssinian_(cat)")
             ),
             .init(
                 id: "8",
                 name: "Aegean",
                 origin: "Greece",
                 description: "Native to the Greek islands known as the Cyclades in the Aegean Sea, these are natural cats, meaning they developed without humans getting involved in their breeding. As a breed, Aegean Cats are rare, although they are numerous on their home islands. They are generally friendly toward people and can be excellent cats for families with children.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Aegean_cat")
             ),
             .init(
                 id: "9",
                 name: "Abyssinian",
                 origin: "Egypt",
                 description: "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Abyssinian_(cat)")
             ),
             .init(
                 id: "10",
                 name: "Aegean",
                 origin: "Greece",
                 description: "Native to the Greek islands known as the Cyclades in the Aegean Sea, these are natural cats, meaning they developed without humans getting involved in their breeding. As a breed, Aegean Cats are rare, although they are numerous on their home islands. They are generally friendly toward people and can be excellent cats for families with children.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Aegean_cat")
             ),
             .init(
                 id: "11",
                 name: "Abyssinian",
                 origin: "Egypt",
                 description: "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Abyssinian_(cat)")
             ),
             .init(
                 id: "12",
                 name: "Aegean",
                 origin: "Greece",
                 description: "Native to the Greek islands known as the Cyclades in the Aegean Sea, these are natural cats, meaning they developed without humans getting involved in their breeding. As a breed, Aegean Cats are rare, although they are numerous on their home islands. They are generally friendly toward people and can be excellent cats for families with children.",
-                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg")
+                imageURL: URL(string: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg"),
+                wikipediaURL: URL(string: "https://en.wikipedia.org/wiki/Aegean_cat")
             )
         ]
     }

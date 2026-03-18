@@ -12,4 +12,5 @@ struct CatModel: Identifiable, Hashable {
     let origin: String
     let description: String
     let imageURL: URL?
+    let wikipediaURL: URL?
 }
