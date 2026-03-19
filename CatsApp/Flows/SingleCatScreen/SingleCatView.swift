@@ -64,7 +64,7 @@ struct SingleCatView: View {
     private func buttonsView() -> some View {
         HStack(spacing: 8) {
             SelectButton(
-                type: .favorite,
+                type: viewModel.cat.isFavorite ? .favorite : .notFavorite,
                 action: {})
             SelectButton(
                 type: .wikipedia,
@@ -78,10 +78,50 @@ struct SingleCatView: View {
     }
     
     private func descriptionView() -> some View {
-        HStack(spacing: 8) {
-            Color.red
+        VStack(spacing: 8) {
+            Text(LocalizableStrings.aboutBreed.uppercased())
+                .font(.system(size: 13, weight: .regular))
+                .foregroundStyle(.textGray)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(LocalizableStrings.description)
+                    .font(.system(size: 15, weight: .regular))
+                    .foregroundStyle(.textGray)
+                Text(viewModel.cat.description)
+                    .font(.system(size: 17, weight: .regular))
+                Divider()
+                    .padding(.vertical, 12)
+                Text(LocalizableStrings.temperament)
+                    .font(.system(size: 15, weight: .regular))
+                    .foregroundStyle(.textGray)
+                Text(viewModel.cat.temperament)
+                    .font(.system(size: 17, weight: .regular))
+                Divider()
+                    .padding(.vertical, 12)
+                Text(LocalizableStrings.intelligence)
+                    .font(.system(size: 15, weight: .regular))
+                    .foregroundStyle(.textGray)
+                HStack(spacing: 16) {
+                    Text("\(viewModel.cat.intelligence)/5")
+                    HStack(spacing: 4) {
+                        ForEach(0..<5, id: \.self) { i in
+                            Capsule()
+                                .frame(height: 6)
+                                .foregroundStyle(i < viewModel.cat.intelligence ? .blue : .black.opacity(0.08))
+                                
+                        }
+                    }
+                }
+            }
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .foregroundStyle(.black.opacity(0.04))
+            )
         }
-        .frame(height: 400)
     }
 }
 
