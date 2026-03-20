@@ -9,6 +9,8 @@ import SwiftUI
 
 struct FavoritesGridItem: View {
     let cat: CatModel
+    var isSelecting: Bool = false
+    var isSelected: Bool = false
     
     var body: some View {
         VStack(spacing: 20) {
@@ -19,6 +21,12 @@ struct FavoritesGridItem: View {
                         AsyncCatImage(url: imageURL)
                     )
                     .clipped()
+                    .overlay(alignment: .topTrailing) {
+                        if isSelecting {
+                            selectionIndicator()
+                                .padding(12)
+                        }
+                    }
             }
             VStack(alignment: .leading, spacing: 1) {
                 Text(cat.name)
@@ -41,6 +49,27 @@ struct FavoritesGridItem: View {
             RoundedRectangle(cornerRadius: 24)
         )
         .shadow(color: Color.black.opacity(0.04), radius: 32)
+        .overlay(
+            RoundedRectangle(cornerRadius: 24)
+                .strokeBorder(isSelected ? Color.blue : Color.clear, lineWidth: 2)
+        )
+    }
+    
+    private func selectionIndicator() -> some View {
+        ZStack {
+            Circle()
+                .fill(isSelected ? Color.blue : Color.white)
+                .strokeBorder(
+                    isSelected ? Color.clear : Color.black.opacity(0.1),
+                    lineWidth: 2
+                )
+                .frame(width: 28, height: 28)
+            if isSelected {
+                Image(.selectCheck)
+                    .frame(width: 13, height: 13)
+                    .foregroundColor(.white)
+            }
+        }
     }
 }
 

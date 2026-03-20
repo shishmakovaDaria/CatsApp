@@ -19,4 +19,7 @@ struct LocalizableStrings {
     static let description = String(localized: "description", comment: "Description")
     static let temperament = String(localized: "temperament", comment: "Temperament")
     static let intelligence = String(localized: "intelligence", comment: "Intelligence")
+    static let select = String(localized: "select", comment: "Select")
+    static let cancel = String(localized: "cancel", comment: "Cancel")
+    static let delete = String(localized: "delete", comment: "Delete")
 }

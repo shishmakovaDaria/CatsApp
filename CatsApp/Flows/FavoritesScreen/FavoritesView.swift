@@ -16,10 +16,12 @@ struct FavoritesView: View {
         GridItem(.flexible(), spacing: 12)
     ]
     
+    // MARK: - Life Cycle
     init(viewModel: FavoritesViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
+    // MARK: - Body
     var body: some View {
         ScrollView {
             LazyVGrid(
@@ -27,20 +29,54 @@ struct FavoritesView: View {
                 spacing: 12,
                 content: {
                     ForEach(viewModel.favoritesCats) { cat in
-                        NavigationLink(
-                            destination: SingleCatView(
-                                viewModel: SingleCatViewModel(cat: cat)
+                        if viewModel.isSelecting {
+                            FavoritesGridItem(
+                                cat: cat,
+                                isSelecting: true,
+                                isSelected: viewModel.selectedCatIDs.contains(cat.id)
                             )
-                        ) {
-                            FavoritesGridItem(cat: cat)
-                                .frame(height: 289)
+                            .frame(height: 289)
+                            .onTapGesture {
+                                viewModel.toggleSelection(for: cat)
+                            }
+                        } else {
+                            NavigationLink(
+                                destination: SingleCatView(
+                                    viewModel: SingleCatViewModel(cat: cat)
+                                )
+                            ) {
+                                FavoritesGridItem(cat: cat)
+                                    .frame(height: 289)
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
                 }
             )
             .scrollIndicators(.hidden)
             .padding(.all, 16)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                if viewModel.isSelecting {
+                    Button(LocalizableStrings.cancel) {
+                        viewModel.cancelSelecting()
+                    }
+                }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                if viewModel.isSelecting {
+                    Button(LocalizableStrings.delete) {
+                        viewModel.deleteSelected()
+                    }
+                    .foregroundStyle(.red)
+                    .disabled(viewModel.selectedCatIDs.isEmpty)
+                } else {
+                    Button(LocalizableStrings.select) {
+                        viewModel.startSelecting()
+                    }
+                }
+            }
         }
     }
 }
