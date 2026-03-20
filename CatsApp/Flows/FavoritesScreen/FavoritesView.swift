@@ -11,6 +11,7 @@ struct FavoritesView: View {
     
     // MARK: - Properties
     @StateObject var viewModel: FavoritesViewModel
+    @State private var showDeleteAlert = false
     private let columns = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
@@ -67,7 +68,7 @@ struct FavoritesView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 if viewModel.isSelecting {
                     Button(LocalizableStrings.delete) {
-                        viewModel.deleteSelected()
+                        showDeleteAlert = true
                     }
                     .foregroundStyle(.red)
                     .disabled(viewModel.selectedCatIDs.isEmpty)
@@ -77,6 +78,16 @@ struct FavoritesView: View {
                     }
                 }
             }
+        }
+        .alert(LocalizableStrings.areYouSure, isPresented: $showDeleteAlert) {
+            Button(LocalizableStrings.cancel, role: .cancel) {
+                viewModel.cancelSelecting()
+            }
+            Button(LocalizableStrings.confirmDelete, role: .destructive) {
+                viewModel.deleteSelected()
+            }
+        } message: {
+            Text(LocalizableStrings.deleteConfirmationMessage)
         }
     }
 }

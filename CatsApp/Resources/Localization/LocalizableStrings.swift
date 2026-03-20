@@ -22,4 +22,7 @@ struct LocalizableStrings {
     static let select = String(localized: "select", comment: "Select")
     static let cancel = String(localized: "cancel", comment: "Cancel")
     static let delete = String(localized: "delete", comment: "Delete")
+    static let areYouSure = String(localized: "areYouSure", comment: "Are you sure?")
+    static let deleteConfirmationMessage = String(localized: "deleteConfirmationMessage", comment: "Delete confirmation message")
+    static let confirmDelete = String(localized: "confirmDelete", comment: "Yes, delete")
 }
