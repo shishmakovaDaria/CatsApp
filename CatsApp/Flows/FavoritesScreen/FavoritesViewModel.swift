@@ -39,7 +39,6 @@ final class FavoritesViewModel: ObservableObject {
     
     func deleteSelected() {
         favoritesCats.removeAll { selectedCatIDs.contains($0.id) }
-        isSelecting = false
-        selectedCatIDs.removeAll()
+        cancelSelecting()
     }
 }

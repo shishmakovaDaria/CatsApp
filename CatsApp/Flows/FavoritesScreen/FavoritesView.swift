@@ -12,10 +12,6 @@ struct FavoritesView: View {
     // MARK: - Properties
     @StateObject var viewModel: FavoritesViewModel
     @State private var showDeleteAlert = false
-    private let columns = [
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible(), spacing: 12)
-    ]
     
     // MARK: - Life Cycle
     init(viewModel: FavoritesViewModel) {
@@ -26,7 +22,13 @@ struct FavoritesView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(
-                columns: columns,
+                columns: Array(
+                    repeating: GridItem(
+                        .flexible(),
+                        spacing: 12
+                    ),
+                    count: 2
+                ),
                 spacing: 12,
                 content: {
                     ForEach(viewModel.favoritesCats) { cat in

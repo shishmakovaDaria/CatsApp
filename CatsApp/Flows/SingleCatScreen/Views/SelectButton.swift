@@ -8,13 +8,12 @@
 import SwiftUI
 
 enum SelectButtonType {
-    case notFavorite
-    case favorite
+    case favorite(value: Bool)
     case wikipedia
     
     var title: String {
         switch self {
-        case .notFavorite, .favorite:
+        case .favorite:
             return LocalizableStrings.favorite
         case .wikipedia:
             return LocalizableStrings.wikipedia
@@ -23,12 +22,10 @@ enum SelectButtonType {
     
     var image: Image {
         switch self {
-        case .notFavorite:
-                .init(systemName: "heart")
-        case .favorite:
-                .init(systemName: "heart.fill")
         case .wikipedia:
                 .init(systemName: "globe")
+        case .favorite(value: let isFavorite):
+            isFavorite ? .init(systemName: "heart.fill") : .init(systemName: "heart")
         }
     }
 }
@@ -51,15 +48,24 @@ struct SelectButton: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 8)
-            .background(type == .favorite ? Color.selectBlue.opacity(0.1) : .black.opacity(0.04))
+            .background(backgroundColor)
             .clipShape(
                 RoundedRectangle(cornerRadius: 12)
             )
         }
         .buttonStyle(.plain)
     }
+    
+    private var backgroundColor: Color {
+        switch type {
+        case .favorite(value: true):
+            return Color.selectBlue.opacity(0.1)
+        default:
+            return Color.black.opacity(0.04)
+        }
+    }
 }
 
 #Preview {
-    SelectButton(type: .favorite, action: {})
+    SelectButton(type: .favorite(value: true), action: {})
 }

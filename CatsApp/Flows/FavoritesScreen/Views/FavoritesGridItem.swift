@@ -23,7 +23,7 @@ struct FavoritesGridItem: View {
                     .clipped()
                     .overlay(alignment: .topTrailing) {
                         if isSelecting {
-                            selectionIndicator()
+                            selectionIndicator
                                 .padding(12)
                         }
                     }
@@ -55,7 +55,7 @@ struct FavoritesGridItem: View {
         )
     }
     
-    private func selectionIndicator() -> some View {
+    private var selectionIndicator: some View {
         ZStack {
             Circle()
                 .fill(isSelected ? Color.blue : Color.white)

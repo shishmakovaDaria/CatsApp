@@ -29,11 +29,11 @@ struct SingleCatView: View {
                         .clipped()
                 }
                 VStack(spacing: 8) {
-                    nameView()
+                    nameView
                         .padding(.horizontal, 4)
                         .padding(.bottom, 12)
-                    buttonsView()
-                    descriptionView()
+                    buttonsView
+                    descriptionView
                 }
                 .padding(.all, 20)
                 Spacer()
@@ -46,38 +46,36 @@ struct SingleCatView: View {
         .toolbarBackground(Color.navbar, for: .navigationBar)
     }
     
-    private func nameView() -> some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(viewModel.cat.name)
-                    .font(.system(size: 24, weight: .bold))
-                    .lineLimit(1)
-                Text(viewModel.cat.origin)
-                    .font(.system(size: 15, weight: .regular))
-                    .foregroundStyle(.textGray)
-                    .lineLimit(1)
-            }
-            Spacer(minLength: 0)
+    private var nameView: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(viewModel.cat.name)
+                .font(.system(size: 24, weight: .bold))
+            Text(viewModel.cat.origin)
+                .font(.system(size: 15, weight: .regular))
+                .foregroundStyle(.textGray)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    private func buttonsView() -> some View {
+    private var buttonsView: some View {
         HStack(spacing: 8) {
             SelectButton(
-                type: viewModel.cat.isFavorite ? .favorite : .notFavorite,
-                action: {})
+                type: .favorite(value: viewModel.cat.isFavorite),
+                action: {}
+            )
             SelectButton(
                 type: .wikipedia,
                 action: {
                     if let url = viewModel.cat.wikipediaURL {
                         openURL(url)
                     }
-                })
+                }
+            )
         }
         .frame(height: 60)
     }
     
-    private func descriptionView() -> some View {
+    private var descriptionView: some View {
         VStack(spacing: 8) {
             Text(LocalizableStrings.aboutBreed.uppercased())
                 .font(.system(size: 13, weight: .regular))
