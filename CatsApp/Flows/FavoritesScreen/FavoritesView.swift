@@ -32,23 +32,21 @@ struct FavoritesView: View {
                 spacing: 12,
                 content: {
                     ForEach(viewModel.favoritesCats) { cat in
-                        if viewModel.isSelecting {
-                            FavoritesGridItem(
-                                cat: cat,
-                                isSelecting: true,
-                                isSelected: viewModel.selectedCatIDs.contains(cat.id)
-                            )
-                            .frame(height: 289)
-                            .onTapGesture {
-                                viewModel.toggleSelection(for: cat)
-                            }
+                        let itemState = viewModel.gridItemState(catID: cat.id)
+
+                        if viewModel.state.isInSelectionMode {
+                            FavoritesGridItem(cat: cat, state: itemState)
+                                .frame(height: 289)
+                                .onTapGesture {
+                                    viewModel.toggleSelection(for: cat)
+                                }
                         } else {
                             NavigationLink(
                                 destination: SingleCatView(
                                     viewModel: SingleCatViewModel(cat: cat)
                                 )
                             ) {
-                                FavoritesGridItem(cat: cat)
+                                FavoritesGridItem(cat: cat, state: itemState)
                                     .frame(height: 289)
                             }
                             .buttonStyle(.plain)
@@ -61,19 +59,19 @@ struct FavoritesView: View {
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                if viewModel.isSelecting {
+                if viewModel.state.isInSelectionMode {
                     Button(LocalizableStrings.cancel) {
                         viewModel.cancelSelecting()
                     }
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
-                if viewModel.isSelecting {
+                if viewModel.state.isInSelectionMode {
                     Button(LocalizableStrings.delete) {
                         showDeleteAlert = true
                     }
                     .foregroundStyle(.red)
-                    .disabled(viewModel.selectedCatIDs.isEmpty)
+                    .disabled(viewModel.state.selectedCatIDs.isEmpty)
                 } else {
                     Button(LocalizableStrings.select) {
                         viewModel.startSelecting()

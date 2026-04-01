@@ -7,11 +7,27 @@
 
 import SwiftUI
 
+enum FavoritesGridItemState: Equatable {
+    /// Обычный режим: тап ведёт на детали.
+    case idle
+    /// Режим выбора на экране: `isSelected` — выбрана ли эта карточка.
+    case selecting(isSelected: Bool)
+    
+    var isInSelectionMode: Bool {
+        if case .selecting = self { return true }
+        return false
+    }
+
+    var isItemSelected: Bool {
+        if case .selecting(let selected) = self { return selected }
+        return false
+    }
+}
+
 struct FavoritesGridItem: View {
     let cat: CatModel
-    var isSelecting: Bool = false
-    var isSelected: Bool = false
-    
+    var state: FavoritesGridItemState
+
     var body: some View {
         VStack(spacing: 20) {
             if let imageURL = cat.imageURL {
@@ -22,8 +38,8 @@ struct FavoritesGridItem: View {
                     )
                     .clipped()
                     .overlay(alignment: .topTrailing) {
-                        if isSelecting {
-                            selectionIndicator
+                        if state.isInSelectionMode {
+                            selectionIndicator(isSelected: state.isItemSelected)
                                 .padding(12)
                         }
                     }
@@ -51,11 +67,11 @@ struct FavoritesGridItem: View {
         .shadow(color: Color.black.opacity(0.04), radius: 32)
         .overlay(
             RoundedRectangle(cornerRadius: 24)
-                .strokeBorder(isSelected ? Color.blue : Color.clear, lineWidth: 2)
+                .strokeBorder(state.isItemSelected ? Color.blue : Color.clear, lineWidth: 2)
         )
     }
     
-    private var selectionIndicator: some View {
+    private func selectionIndicator(isSelected: Bool) -> some View {
         ZStack {
             Circle()
                 .fill(isSelected ? Color.blue : Color.white)
@@ -74,6 +90,6 @@ struct FavoritesGridItem: View {
 }
 
 #Preview {
-    FavoritesGridItem(cat: .fixture())
+    FavoritesGridItem(cat: .fixture(), state: .idle)
         .frame(width: 173, height: 289)
 }

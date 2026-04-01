@@ -7,13 +7,27 @@
 
 import Foundation
 
-final class FavoritesViewModel: ObservableObject {
+enum FavoritesViewState: Equatable {
+    case idle
+    case selection(catIDs: Set<String>)
     
+    var isInSelectionMode: Bool {
+        if case .selection = self { return true }
+        return false
+    }
+
+    var selectedCatIDs: Set<String> {
+        if case .selection(let ids) = self { return ids }
+        return []
+    }
+}
+
+final class FavoritesViewModel: ObservableObject {
+
     // MARK: - Publishers
     @Published var favoritesCats: [CatModel] = []
-    @Published var isSelecting = false
-    @Published var selectedCatIDs: Set<String> = []
-    
+    @Published var state: FavoritesViewState = .idle
+
     // MARK: - Life Cycle
     init() {
         favoritesCats = CatModel.mockData()
@@ -21,24 +35,34 @@ final class FavoritesViewModel: ObservableObject {
     
     // MARK: - Public methods
     func toggleSelection(for cat: CatModel) {
+        var selectedCatIDs = state.selectedCatIDs
         if selectedCatIDs.contains(cat.id) {
             selectedCatIDs.remove(cat.id)
         } else {
             selectedCatIDs.insert(cat.id)
         }
+        state = .selection(catIDs: selectedCatIDs)
     }
-    
+
     func startSelecting() {
-        isSelecting = true
+        state = .selection(catIDs: [])
     }
-    
+
     func cancelSelecting() {
-        isSelecting = false
-        selectedCatIDs.removeAll()
+        state = .idle
+    }
+
+    func deleteSelected() {
+        favoritesCats.removeAll { state.selectedCatIDs.contains($0.id) }
+        cancelSelecting()
     }
     
-    func deleteSelected() {
-        favoritesCats.removeAll { selectedCatIDs.contains($0.id) }
-        cancelSelecting()
+    func gridItemState(catID: String) -> FavoritesGridItemState {
+        switch state {
+        case .idle:
+            return .idle
+        case .selection(let ids):
+            return .selecting(isSelected: ids.contains(catID))
+        }
     }
 }
