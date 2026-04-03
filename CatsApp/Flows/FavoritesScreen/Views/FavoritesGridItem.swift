@@ -27,6 +27,8 @@ enum FavoritesGridItemState: Equatable {
 struct FavoritesGridItem: View {
     let cat: CatModel
     var state: FavoritesGridItemState
+    
+    let viewShape = RoundedRectangle(cornerRadius: 24)
 
     var body: some View {
         VStack(spacing: 20) {
@@ -61,12 +63,10 @@ struct FavoritesGridItem: View {
             Spacer(minLength: 0)
         }
         .background(Color.white)
-        .clipShape(
-            RoundedRectangle(cornerRadius: 24)
-        )
+        .clipShape(viewShape)
         .shadow(color: Color.black.opacity(0.04), radius: 32)
         .overlay(
-            RoundedRectangle(cornerRadius: 24)
+            viewShape
                 .strokeBorder(state.isItemSelected ? Color.blue : Color.clear, lineWidth: 2)
         )
     }

@@ -84,32 +84,11 @@ struct SingleCatView: View {
                 .padding(.horizontal, 16)
                 .padding(.top, 16)
             VStack(alignment: .leading, spacing: 2) {
-                Text(LocalizableStrings.description)
-                    .font(.system(size: 15, weight: .regular))
-                    .foregroundStyle(.textGray)
-                Text(viewModel.cat.description)
-                    .font(.system(size: 17, weight: .regular))
-                Divider()
-                    .padding(.vertical, 12)
-                Text(LocalizableStrings.temperament)
-                    .font(.system(size: 15, weight: .regular))
-                    .foregroundStyle(.textGray)
-                Text(viewModel.cat.temperament)
-                    .font(.system(size: 17, weight: .regular))
-                Divider()
-                    .padding(.vertical, 12)
-                Text(LocalizableStrings.intelligence)
-                    .font(.system(size: 15, weight: .regular))
-                    .foregroundStyle(.textGray)
-                HStack(spacing: 16) {
-                    Text("\(viewModel.cat.intelligence)/5")
-                    HStack(spacing: 4) {
-                        ForEach(0..<5, id: \.self) { i in
-                            Capsule()
-                                .frame(height: 6)
-                                .foregroundStyle(i < viewModel.cat.intelligence ? .blue : .black.opacity(0.08))
-                                
-                        }
+                ForEach(viewModel.descriptionModels, id: \.self) { model in
+                    DescriptionView(type: model)
+                    if model != viewModel.descriptionModels.last {
+                        Divider()
+                            .padding(.vertical, 12)
                     }
                 }
             }
