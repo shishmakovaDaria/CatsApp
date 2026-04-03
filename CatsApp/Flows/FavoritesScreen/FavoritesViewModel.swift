@@ -36,11 +36,7 @@ final class FavoritesViewModel: ObservableObject {
     // MARK: - Public methods
     func toggleSelection(for cat: CatModel) {
         var selectedCatIDs = state.selectedCatIDs
-        if selectedCatIDs.contains(cat.id) {
-            selectedCatIDs.remove(cat.id)
-        } else {
-            selectedCatIDs.insert(cat.id)
-        }
+        selectedCatIDs.toggle(cat.id)
         state = .selection(catIDs: selectedCatIDs)
     }
 
