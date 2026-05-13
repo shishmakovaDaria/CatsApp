@@ -13,12 +13,12 @@ enum FavoritesGridItemState: Equatable {
     /// Режим выбора на экране: `isSelected` — выбрана ли эта карточка.
     case selecting(isSelected: Bool)
     
-    var isInSelectionMode: Bool {
+    fileprivate var isInSelectionMode: Bool {
         if case .selecting = self { return true }
         return false
     }
 
-    var isItemSelected: Bool {
+    fileprivate var isItemSelected: Bool {
         if case .selecting(let selected) = self { return selected }
         return false
     }
