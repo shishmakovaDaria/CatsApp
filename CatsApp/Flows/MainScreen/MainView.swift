@@ -27,10 +27,17 @@ struct MainView: View {
                         .id(String.topId)
                     LazyVStack(spacing: 12) {
                         ForEach(viewModel.cats) { cat in
-                            MainRowItem(
-                                cat: cat,
-                                viewHeight: rowItemHeight
-                            )
+                            NavigationLink(
+                                destination: SingleCatView(
+                                    viewModel: SingleCatViewModel(cat: cat)
+                                )
+                            ) {
+                                MainRowItem(
+                                    cat: cat,
+                                    viewHeight: rowItemHeight
+                                )
+                            }
+                            .buttonStyle(.plain) 
                         }
                     }
                     .padding(.all, 16)

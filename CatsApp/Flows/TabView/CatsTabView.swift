@@ -18,7 +18,7 @@ struct CatsTabView: View {
                 Label(LocalizableStrings.cats, systemImage: "cat")
             }
             NavigationStack {
-                FavoritesView()
+                FavoritesView(viewModel: FavoritesViewModel())
                     .navigationTitle(LocalizableStrings.favorites)
                     .appToolbar()
             }

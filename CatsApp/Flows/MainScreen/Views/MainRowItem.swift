@@ -14,9 +14,9 @@ struct MainRowItem: View {
     var body: some View {
         HStack(spacing: 20) {
             if let imageURL = cat.imageURL {
-                AsyncImage(url: imageURL, content: catImage)
-                .frame(width: 112)
-                .clipped()
+                AsyncCatImage(url: imageURL)
+                    .frame(width: 112)
+                    .clipped()
             }
             VStack(alignment: .leading, spacing: 1) {
                 Text(cat.name)
@@ -40,28 +40,6 @@ struct MainRowItem: View {
             RoundedRectangle(cornerRadius: 24)
         )
         .shadow(color: Color.black.opacity(0.04), radius: 32)
-    }
-    
-    @ViewBuilder
-    private func catImage(for phase: AsyncImagePhase) -> some View {
-        switch phase {
-        case .empty:
-            ProgressView()
-        case .success(let image):
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-        case .failure(let error):
-            VStack(spacing: 4) {
-                Image(systemName: "xmark.circle")
-                Text(error.localizedDescription)
-                    .font(.system(size: 13, weight: .regular))
-                    .multilineTextAlignment(.center)
-            }
-        @unknown default:
-            Text("Unknown")
-                .foregroundColor(.gray)
-        }
     }
 }
 

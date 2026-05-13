@@ -8,11 +8,90 @@
 import SwiftUI
 
 struct FavoritesView: View {
+    
+    // MARK: - Properties
+    @StateObject var viewModel: FavoritesViewModel
+    @State private var showDeleteAlert = false
+    
+    // MARK: - Life Cycle
+    init(viewModel: FavoritesViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
+    // MARK: - Body
     var body: some View {
-        Text("FavoritesView")
+        ScrollView {
+            LazyVGrid(
+                columns: Array(
+                    repeating: GridItem(
+                        .flexible(),
+                        spacing: 12
+                    ),
+                    count: 2
+                ),
+                spacing: 12,
+                content: {
+                    ForEach(viewModel.favoritesCats) { cat in
+                        let itemState = viewModel.gridItemState(catID: cat.id)
+
+                        if viewModel.state.isInSelectionMode {
+                            FavoritesGridItem(cat: cat, state: itemState)
+                                .frame(height: 289)
+                                .onTapGesture {
+                                    viewModel.toggleSelection(for: cat)
+                                }
+                        } else {
+                            NavigationLink(
+                                destination: SingleCatView(
+                                    viewModel: SingleCatViewModel(cat: cat)
+                                )
+                            ) {
+                                FavoritesGridItem(cat: cat, state: itemState)
+                                    .frame(height: 289)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                }
+            )
+            .scrollIndicators(.hidden)
+            .padding(.all, 16)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                if viewModel.state.isInSelectionMode {
+                    Button(LocalizableStrings.cancel) {
+                        viewModel.cancelSelecting()
+                    }
+                }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                if viewModel.state.isInSelectionMode {
+                    Button(LocalizableStrings.delete) {
+                        showDeleteAlert = true
+                    }
+                    .foregroundStyle(.red)
+                    .disabled(viewModel.state.selectedCatIDs.isEmpty)
+                } else {
+                    Button(LocalizableStrings.select) {
+                        viewModel.startSelecting()
+                    }
+                }
+            }
+        }
+        .alert(LocalizableStrings.areYouSure, isPresented: $showDeleteAlert) {
+            Button(LocalizableStrings.cancel, role: .cancel) {
+                viewModel.cancelSelecting()
+            }
+            Button(LocalizableStrings.confirmDelete, role: .destructive) {
+                viewModel.deleteSelected()
+            }
+        } message: {
+            Text(LocalizableStrings.deleteConfirmationMessage)
+        }
     }
 }
 
 #Preview {
-    FavoritesView()
+    FavoritesView(viewModel: FavoritesViewModel())
 }
